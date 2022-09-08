@@ -19,6 +19,7 @@ inputEl.addEventListener('input', debounce(onInput, DEBOUNCE_DELAY));
 function onInput(event) {
   let inputValue = event.target.value.trim();
   if (inputValue === '') {
+    deleteCountryMarkup();
     return;
   }
 
@@ -31,35 +32,31 @@ function onInput(event) {
     })
     .catch(error => {
       // console.warn(error);
+      deleteCountryMarkup();
       Notiflix.Notify.failure('Oops, there is no country with that name.');
     });
 }
 
-function renderCountryMarkup(country) {
+function deleteCountryMarkup() {
   let itemCountryEl = document.querySelectorAll('.item-country');
   let countryInfoItemEl = document.querySelector('.country-info-item');
 
+  itemCountryEl?.forEach(item => item.remove());
+  countryInfoItemEl?.remove();
+}
+
+function renderCountryMarkup(country) {
+  // console.log(country.length);
   if (country.length > 10) {
-    itemCountryEl?.forEach(item => item.remove());
-    // if (countryInfoItemEl) {
-    countryInfoItemEl?.remove();
-    // }
+    deleteCountryMarkup();
+
     return Notiflix.Notify.info(
       'Too many matches found. Please enter a more specific name.'
     );
   }
-  if (country.length === 0) {
-    itemCountryEl?.forEach(item => item.remove());
-    countryInfoItemEl?.remove();
-  }
 
   if (country.length === 1) {
-    // countryInfoItemEl = document.querySelector('.country-info-item');
-    if (countryInfoItemEl) {
-      return;
-    }
-
-    itemCountryEl.forEach(item => item.remove());
+    deleteCountryMarkup();
 
     const countryObj = country[0];
 
@@ -89,12 +86,7 @@ function renderCountryMarkup(country) {
     return countryInfoEl.insertAdjacentHTML('beforeend', markupInfo);
   }
 
-  // if (countryInfoItemEl) {
-  countryInfoItemEl?.remove();
-  // }
-  // if (itemCountryEl) {
-  itemCountryEl?.forEach(item => item.remove());
-  // }
+  deleteCountryMarkup();
 
   const markupList = country
     .map(
@@ -107,5 +99,5 @@ function renderCountryMarkup(country) {
     )
     .join('');
 
-  countryListEl.insertAdjacentHTML('beforeend', markupList);
+  return countryListEl.insertAdjacentHTML('beforeend', markupList);
 }

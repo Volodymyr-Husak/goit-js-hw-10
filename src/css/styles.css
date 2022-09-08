@@ -10,13 +10,26 @@ body {
   background-color: #fafafa;
   color: #212121;
   line-height: 1.5;
+
+  background-color: rgb(233, 218, 227);
+}
+
+.title {
+
+  text-align: center;
+  
 }
 
 #search-box {
   font: inherit;
   padding: 8px;
   max-width: 320px;
+
+  display: block;
   margin-bottom: 16px;
+
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .item-country {
@@ -40,8 +53,16 @@ body {
 }
 
 .country-list {
+  display: block;
+  width: 200px;
   padding: 0;
-  margin: 0;
+  /* margin: 0; */
+  margin-left: auto;
+  margin-right: auto;
+
+  text-align: center;
+
+  justify-content: center;
 }
 
 .country-list__text {
@@ -49,11 +70,21 @@ body {
 }
 
 .country-flag-container{
+  justify-content: center;
   display: flex;
   margin-bottom: 10px;
 }
 
+.country-info {
+  display: block;
+  width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .country-info__list {
+  text-align: center;
+
   list-style: none;
   padding: 0;
   margin: 0;
